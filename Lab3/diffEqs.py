@@ -26,16 +26,16 @@ import matplotlib.pyplot as plt
 import scipy.integrate
 
 
-# Makes a plot of one array against another with a given title and
-# given axis labels
-def basicPlot(title, xList, yList, xLabel, yLabel):
+# Saves a plot of one array against another with a given title and
+# given axis labels as a file with a given name
+def basicPlot(title, xList, yList, xLabel, yLabel, fileNbasicame):
     plt.rcParams.update({'font.size': 18})
     plt.figure(figsize=(9.75,6.5))
     plt.plot(xList, yList)
     plt.title(title)
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
-    plt.show(block=True)
+    savefig(fileName, bbox_inches='tight')
 
 # Analytically finds the position of the spring with given initial
 # conditions at a given time. Assumes that k/m=1.
@@ -122,22 +122,22 @@ def explicitEulerSpring(h, xi, vi):
     # Plots the position and velocity from explicit Euler's method
     # against time.
     basicPlot("Position as a Function of Time with Step Size = " + str(h), tOut,  \
-               xOut, "Time", "Position")
+               xOut, "Time", "Position", "PosExp.png")
     basicPlot("Velocity as a Function of Time with Step Size = " + str(h), tOut,  \
-               vOut, "Time", "Velocity")
+               vOut, "Time", "Velocity", "VelExp.png")
 
     # Calculates and plots error from using explicit Euler's method as
     # compared to analytical solutions.
     xError = xOut - xAnal
     vError = vOut - vAnal
     basicPlot("Error in Position as a Function of Time with\nStep Size = " + str(h), \
-              tOut, xError, "Time", "Error in Positon")
+              tOut, xError, "Time", "Error in Position", "ErrPosExp.png")
     basicPlot("Error in Velocity as a Function of Time with\nStep Size = " + str(h), \
-              tOut, vError, "Time", "Error in Velocity")
+              tOut, vError, "Time", "Error in Velocity", "ErrVelExp.png")
 
     # Plots the normalized total energy as a function of time.
     basicPlot("Normalized Total Energy as a Function of Time\nwith Step Size = " + \
-              str(h), tOut, eOut, "Time", "Energy")
+              str(h), tOut, eOut, "Time", "Energy", "NrgExp.png")
 
 
 # Plots the truncation error from using explicit Euler's method as a
@@ -185,7 +185,7 @@ def truncErr(t, numPoints):
     # plots error as a function of step size
     basicPlot("Error in Approximated Position as a Function of Step Size"\
              + " at t= " + str(t), stepSize, xError, "Step Size",\
-             "Error in Approximated Positon")
+             "Error in Approximated Positon", "hVsErrExp.png")
 
 
 # Plots the position and velocity as a function of time of a mass on a
@@ -237,10 +237,10 @@ def implicitEulerSpring(h, xi, vi):
     # against time.
     basicPlot("Position as a Function of Time with\n" +\
               "Step Size = " + str(h), tOut,  \
-              xOut, "Time", "Position")
+              xOut, "Time", "Position", "PosImp.png")
     basicPlot("Velocity as a Function of Time with\n" +\
               "Step Size = " + str(h), tOut,  \
-              vOut, "Time", "Velocity")
+              vOut, "Time", "Velocity", "VelImp.png")
 
     # Calculates and plots error from using implicit Euler's method as
     # compared to analytical solutions.
@@ -248,14 +248,15 @@ def implicitEulerSpring(h, xi, vi):
     vError = vOut - vAnal
     basicPlot("Error in Position as a Function of Time with\n" +\
               "Step Size = " + str(h), tOut, xError, "Time", \
-              "Error in Positon")
+              "Error in Positon", "ErrPosImp.png")
     basicPlot("Error in Velocity as a Function of Time with\n" +\
               "Step Size = " + str(h), tOut, vError, "Time", \
-              "Error in Positon")
+              "Error in Velocity", "ErrVelImp.png")
               
     # Plots the normalized total energy as a function of time.
     basicPlot("Normalized Total Energy as a Function of Time with\n"\
-              + "Step Size = " + str(h), tOut, eOut, "Time", "Energy")
+              + "Step Size = " + str(h), tOut, eOut, "Time", "Energy",\
+              "NrgImp.png")
 
 
 
@@ -306,13 +307,13 @@ def phaseSpaceGeoExpImpAna(xi, vi, h, numCycles):
     # Plots trajectories produced by the explicit and implicit Euler methods
     basicPlot("Phase-space Geometry of the Trajectory from \nExplicit Euler's "+\
               "Method with h = " + str(h) + ", Xi = " + str(xi) + ", Vi = " +\
-              str(vi), xExp, vExp, "Position", "Velocity")
+              str(vi), xExp, vExp, "Position", "Velocity", "PSGeoExp.png")
     basicPlot("Phase-space Geometry of the Trajectory from \nImplicit Euler's "+\
               "Method with h = " + str(h) + ", Xi = " + str(xi) + ", Vi = " +\
-              str(vi), xImp, vImp, "Position", "Velocity")
+              str(vi), xImp, vImp, "Position", "Velocity", "PSGeoImp.png")
     basicPlot("Phase-space Geometry of the Trajectory\nDetermined Analytically"+\
               " with h = " + str(h) + ", Xi = " + str(xi) + ", Vi = " +\
-              str(vi), xAna, vAna, "Position", "Velocity")
+              str(vi), xAna, vAna, "Position", "Velocity", "PSGeoAna.png")
 
 
 # Plots the phase-space geometry of the trajectories produced by the
@@ -343,7 +344,8 @@ def phaseSpaceGeoSym(xi, vi, h, numCycles):
     # Plots trajectories produced by the symplectic Euler's method
     basicPlot("Phase-space Geometry of the Trajectory from \nSymplectic "+\
               "Euler's Method with h = " + str(h) + ", Xi = " + str(xi) + \
-              ", Vi = " + str(vi), xSym, vSym, "Position", "Velocity")
+              ", Vi = " + str(vi), xSym, vSym, "Position", "Velocity",\
+              "PSGeoSym" + str(h)[2:] + ".png")
 
 
 # Plots the normalized energy of an oscillating system as a function of time
@@ -381,7 +383,7 @@ def symEnergy(xi, vi, h, numCycles):
     # Euler's method as a function of time
     basicPlot("Energy of the System Modelled with \nSymplectic "+\
               "Euler's Method with h = " + str(h) + ", Xi = " + str(xi) + \
-              ", Vi = " + str(vi), time, eSym, "Time", "Energy")
+              ", Vi = " + str(vi), time, eSym, "Time", "Energy", "NrgSym.png")
 
 
 # The calls to the above methods used to generate the figures in my report:
