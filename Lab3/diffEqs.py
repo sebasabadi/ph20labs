@@ -28,14 +28,14 @@ import scipy.integrate
 
 # Saves a plot of one array against another with a given title and
 # given axis labels as a file with a given name
-def basicPlot(title, xList, yList, xLabel, yLabel, fileNbasicame):
+def basicPlot(title, xList, yList, xLabel, yLabel, fileName):
     plt.rcParams.update({'font.size': 18})
     plt.figure(figsize=(9.75,6.5))
     plt.plot(xList, yList)
     plt.title(title)
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
-    savefig(fileName, bbox_inches='tight')
+    plt.savefig(fileName, bbox_inches='tight')
 
 # Analytically finds the position of the spring with given initial
 # conditions at a given time. Assumes that k/m=1.
