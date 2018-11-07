@@ -13,6 +13,8 @@
 # solution. Finally, this program plots the energy of the system as modelled
 # using the sympletic Euler's method.
 #
+# If a command argument 'n' is entered, only the nth plot is created.
+#
 # Author: Sebastien Abadi
 #
 # Date: 10/30/18
@@ -26,16 +28,36 @@ import matplotlib.pyplot as plt
 import scipy.integrate
 
 
+# A command line argument may be given to specify which plot to create (index
+# starts from 1; if no arguments are given, 'ONLY_PLOT' is a assigned a value.
+# of zero and all are printed). 'plotCounter' tracks how many plots have been
+# skipped.
+ONLY_PLOT = 0
+plotCounter = 1
+if len(sys.argv) == 2:
+    ONLY_PLOT = int(sys.argv[1])
+
 # Saves a plot of one array against another with a given title and
 # given axis labels as a file with a given name
 def basicPlot(title, xList, yList, xLabel, yLabel, fileName):
-    plt.rcParams.update({'font.size': 18})
-    plt.figure(figsize=(9.75,6.5))
-    plt.plot(xList, yList)
-    plt.title(title)
-    plt.xlabel(xLabel)
-    plt.ylabel(yLabel)
-    plt.savefig(fileName, bbox_inches='tight')
+    
+    # Skips making the plot if it wasn't called for in the command line.
+    # Otherwise, makes the plot.
+    global plotCounter
+    global ONLY_PLOT
+    if (ONLY_PLOT != 0 and plotCounter != ONLY_PLOT):
+        plotCounter += 1
+        return
+    else:
+        plotCounter += 1
+
+        plt.rcParams.update({'font.size': 18})
+        plt.figure(figsize=(9.75,6.5))
+        plt.plot(xList, yList)
+        plt.title(title)
+        plt.xlabel(xLabel)
+        plt.ylabel(yLabel)
+        plt.savefig(fileName, bbox_inches='tight')
 
 # Analytically finds the position of the spring with given initial
 # conditions at a given time. Assumes that k/m=1.
@@ -385,9 +407,7 @@ def symEnergy(xi, vi, h, numCycles):
               "Euler's Method with h = " + str(h) + ", Xi = " + str(xi) + \
               ", Vi = " + str(vi), time, eSym, "Time", "Energy", "NrgSym.png")
 
-
 # The calls to the above methods used to generate the figures in my report:
-
 explicitEulerSpring(.1, -1, 1)
 truncErr(10, 10)
 implicitEulerSpring(.1, -1, 1)
