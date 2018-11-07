@@ -30,7 +30,7 @@ import scipy.integrate
 # given axis labels
 def basicPlot(title, xList, yList, xLabel, yLabel):
     plt.rcParams.update({'font.size': 18})
-    plt.figure(figsize=(9.5,6.5))
+    plt.figure(figsize=(9.75,6.5))
     plt.plot(xList, yList)
     plt.title(title)
     plt.xlabel(xLabel)
