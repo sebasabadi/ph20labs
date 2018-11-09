@@ -1,9 +1,8 @@
 \documentclass[10pt]{article}
  
 \usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
-\usepackage{caption}
-\usepackage{subcaption}
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array, minted, listings}
+\usepackage{caption, subcaption}
  
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -15,7 +14,9 @@
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 
 \begin{document}
- 
+Git log file:
+\VerbatimInput{log.txt}
+\newpage
 \title{Lab 3 - Numerical Solution of Ordinary Differential Equations}
 \author{Sebastien Abadi\\
 Ph20}

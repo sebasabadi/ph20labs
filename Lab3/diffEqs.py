@@ -13,7 +13,8 @@
 # solution. Finally, this program plots the energy of the system as modelled
 # using the sympletic Euler's method.
 #
-# If a command argument 'n' is entered, only the nth plot is created.
+# If a command argument is entered, only the plot with the same name as the
+# the argument will be created.
 #
 # Author: Sebastien Abadi
 #
@@ -28,14 +29,11 @@ import matplotlib.pyplot as plt
 import scipy.integrate
 
 
-# A command line argument may be given to specify which plot to create (index
-# starts from 1; if no arguments are given, 'ONLY_PLOT' is a assigned a value.
-# of zero and all are printed). 'plotCounter' tracks how many plots have been
-# skipped.
+# A command line argument may be given to specify which plot to create.
+# If no argument is given, 'ONLY_PLOT' is set to zero.
 ONLY_PLOT = 0
-plotCounter = 1
 if len(sys.argv) == 2:
-    ONLY_PLOT = int(sys.argv[1])
+    ONLY_PLOT = sys.argv[1]
 
 # Saves a plot of one array against another with a given title and
 # given axis labels as a file with a given name
@@ -45,12 +43,9 @@ def basicPlot(title, xList, yList, xLabel, yLabel, fileName):
     # Otherwise, makes the plot.
     global plotCounter
     global ONLY_PLOT
-    if (ONLY_PLOT != 0 and plotCounter != ONLY_PLOT):
-        plotCounter += 1
+    if (ONLY_PLOT != 0 and fileName[:-4] != ONLY_PLOT):
         return
     else:
-        plotCounter += 1
-
         plt.rcParams.update({'font.size': 18})
         plt.figure(figsize=(9.75,6.5))
         plt.plot(xList, yList)
