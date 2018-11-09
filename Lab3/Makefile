@@ -20,6 +20,7 @@ clean :
 	rm -f report.log
 	rm -f report.aux
 	rm -f log.txt
+	rm -r _minted-report
 
 # Generates git log
 log.txt :
