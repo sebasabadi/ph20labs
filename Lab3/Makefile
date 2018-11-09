@@ -12,7 +12,7 @@ plots : $(ALL_PLOTS)
 %.png : diffEqs.py
 	python $< $*
 
-# Deletes plots
+# Deletes all products
 .PHONY : clean
 clean :
 	rm -f *.png

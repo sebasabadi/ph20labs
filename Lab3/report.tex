@@ -14,8 +14,17 @@
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 
 \begin{document}
+Makefile:
+\inputminted[%
+breaklines]{mf}{makefile}
+\newpage
 Git log file:
-\VerbatimInput{log.txt}
+\VerbatimInput[%
+breaklines]{log.txt}
+\newpage
+Source code:
+\inputminted[%
+breaklines]{py}{diffEqs.py}
 \newpage
 \title{Lab 3 - Numerical Solution of Ordinary Differential Equations}
 \author{Sebastien Abadi\\
